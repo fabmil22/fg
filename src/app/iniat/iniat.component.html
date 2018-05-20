@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+
+      <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+
+        <!--addresses-->
+        <div formArrayName="data">
+          <div *ngFor="let address of myForm.controls.data.controls; let i=index" class="panel panel-default">
+            <div class="panel-heading">
+              <span>Interesado {{i + 1}}</span>
+              <span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.data.controls.length > 1" (click)="removeAddress(i)"></span>
+            </div>
+            <div class="panel-body" [formGroupName]="i">
+              <div class="form-group col-xs-12">
+                <label>tipo de persona</label>
+                <input type="radio" value="fisica" formControlName="kindOfPerson"> Fisica
+                <input type="radio" value="juridica" formControlName="kindOfPerson"> Juridica
+                <input type="radio" value="comunidad" formControlName="kindOfPerson"> Comunidad de propetarios
+              </div>
+              <div class="form-group col-xs-3">
+                <label>Tipo de documento</label>
+                <input type="text" class="form-control" formControlName="documentType">
+              </div>
+              <div class="form-group col-xs-3">
+                <label>Document</label>
+                <input type="text" class="form-control" formControlName="document">
+              </div>
+              <div class="form-group col-xs-6">
+                <label>Nombre</label>
+                <input type="text" class="form-control" formControlName="name">
+              </div>
+              <div class="form-group col-xs-6">
+                <label>Primer apellido</label>
+                <input type="text" class="form-control" formControlName="surname">
+              </div>
+              <div class="form-group col-xs-6">
+                <label>Segundo apellido</label>
+                <input type="text" class="form-control" formControlName="secondSurname">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-20">
+          <a (click)="addAddress()" style="cursor: default">
+            otro interesado +
+          </a>
+        </div>
+
+        <div class="margin-20">
+          <button type="submit" class="btn btn-primary pull-right" [disabled]="!myForm.valid">Submit</button>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="margin-20">
+          <div>myForm details:-</div>
+          <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
+          <pre>form value: <br>{{myForm.value | json}}</pre>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
